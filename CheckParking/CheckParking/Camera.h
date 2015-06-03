@@ -6,8 +6,10 @@
 //  Copyright (c) 2015年 Takahiro NAGAKURA. All rights reserved.
 //
 
-#ifndef CheckParking_Camera_h
-#define CheckParking_Camera_h
+#import <UIKit/UIKit.h>
 
+@interface Camera : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
+    UIImageView* _imageView;
+}
 
-#endif
+@end
