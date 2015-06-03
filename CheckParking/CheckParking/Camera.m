@@ -31,6 +31,16 @@
     return button;
 }
 
+- (UIImageView *)makeImageView:(CGRect)rect image:(UIImage *)image {
+    // Show taked photos
+    UIImageView* imageView = [[UIImageView alloc] init];
+    [imageView setFrame:rect];
+    [imageView setImage:image];
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    
+    return imageView;
+}
+
 - (IBAction)clickButton:(UIButton *)sender {
     // Button clicked events
     if (sender.tag == BTN_CAMERA) {
