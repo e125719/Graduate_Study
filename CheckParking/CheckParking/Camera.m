@@ -73,6 +73,11 @@
     [[picker presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)pickerCtl {
+    // If canceled the picker view.
+    [[pickerCtl presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)clickButton:(UIButton *)sender {
     // Button clicked events.
     if (sender.tag == BTN_CAMERA) {
