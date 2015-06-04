@@ -15,4 +15,12 @@
 @property(nonatomic, strong) NSString *documentsDirectory;
 @property(nonatomic, strong) NSString *databaseFilename;
 
+@property(nonatomic, strong) NSMutableArray *arrResults;
+
+- (void)runQuery:(const char *)query isQueryExecutable:(BOOL)queryExecutable;
+
+@property(nonatomic, strong) NSMutableArray *arrColumnNames;
+@property(nonatomic) int affectedRows;
+@property(nonatomic) long long lastInsertedRowID;
+
 @end
