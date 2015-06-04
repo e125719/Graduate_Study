@@ -63,6 +63,17 @@
         self.arrColumnNames = nil;
     }
     self.arrColumnNames = [[NSMutableArray alloc] init];
+    
+    // Open the database with results.
+    int openDatabaseResult = sqlite3_open([databasePath UTF8String], &sqlite3Database);
+    
+    // Open the database.
+    if (openDatabaseResult == SQLITE_OK) {
+
+    }
+    
+    // Close the database.
+    sqlite3_close(sqlite3Database);
 }
 
 @end
