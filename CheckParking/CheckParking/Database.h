@@ -10,4 +10,9 @@
 
 @interface Database : NSObject
 
+- (instancetype)initWithDatabaseFilename:(NSString *)dbFilename;
+
+@property(nonatomic, strong) NSString *documentsDirectory;
+@property(nonatomic, strong) NSString *databaseFilename;
+
 @end
