@@ -47,6 +47,21 @@
         [self showAlert:@"" text:@"You cannot use the camera and photo album."];
         return;
     }
+    
+    // Initialize image picker.
+    UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = sourceType;
+    picker.delegate = self;
+    
+    // Open the view controller's view.
+    if ([[UIDevice currentDevice].model rangeOfString:@"iPad"].location == NSNotFound) {
+        [self presentViewController:picker animated:YES completion:nil];
+    } else {
+        UIButton* button = [[self.view subviews] objectAtIndex:1];
+        UIPopoverController* popoverCtl = [[UIPopoverController alloc] initWithContentViewController:picker];
+        
+        [popoverCtl presentPopoverFromRect:[button bounds] inView:button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 - (IBAction)clickButton:(UIButton *)sender {
