@@ -64,6 +64,15 @@
     }
 }
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    // Specify images.
+    UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [_imageView setImage:image];
+    
+    // Close the picker view's view.
+    [[picker presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)clickButton:(UIButton *)sender {
     // Button clicked events.
     if (sender.tag == BTN_CAMERA) {
