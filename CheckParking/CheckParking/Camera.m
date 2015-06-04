@@ -114,4 +114,13 @@
     }
 }
 
+- (void)finishExport:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    // Finished writing the photo.
+    if (error == nil) {
+        [self showAlert:@"" text:@"Finished Writing the Photo"];
+    } else {
+        [self showAlert:@"" text:@"Failed Writing the Photo"];
+    }
+}
+
 @end
