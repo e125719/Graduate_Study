@@ -15,13 +15,13 @@
 @implementation Camera
 
 - (void)showAlert:(NSString *)title text:(NSString *)text {
-    // Show alert
+    // Show alert.
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:text delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
 
 - (UIButton *)makeButton:(CGRect)rect text:(NSString *)text tag:(int)tag {
-    // Make text button
+    // Make text button.
     UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button setTitle:text forState:UIControlStateNormal];
     [button setFrame:rect];
@@ -32,7 +32,7 @@
 }
 
 - (UIImageView *)makeImageView:(CGRect)rect image:(UIImage *)image {
-    // Show taked photos
+    // Show taked photos.
     UIImageView* imageView = [[UIImageView alloc] init];
     [imageView setFrame:rect];
     [imageView setImage:image];
@@ -41,8 +41,16 @@
     return imageView;
 }
 
+- (void)openPicker:(UIImagePickerControllerSourceType)sourceType {
+    // Check you can use camera and photo album.
+    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        [self showAlert:@"" text:@"You cannot use the camera and photo album."];
+        return;
+    }
+}
+
 - (IBAction)clickButton:(UIButton *)sender {
-    // Button clicked events
+    // Button clicked events.
     if (sender.tag == BTN_CAMERA) {
         [self openPicker:UIImagePickerControllerSourceTypeCamera];
     } else if (sender.tag == BTN_READ) {
