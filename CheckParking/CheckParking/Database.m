@@ -22,9 +22,25 @@
         self.databaseFilename = dbFilename;
         
         // Copy the database file into the documents directory if necessary.
-        [self copyDatabaseintoDocumentsDirectory];
+        [self copyDatabaseIntoDocumentsDirectory];
     }
     return self;
+}
+
+- (void)copyDatabaseIntoDocumentsDirectory {
+    // Check if the database file exists in the documents directory.
+    NSString *destinationPath = [self.documentsDirectory stringByAppendingPathComponent:self.databaseFilename];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]) {
+        // The database file does not exist in the documents directory, so copy it form the main bundle now.
+        NSString *sourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self.databaseFilename];
+        NSError *error;
+        [[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+        
+        // Check if any error occured during copying and display it.
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+    }
 }
 
 @end
