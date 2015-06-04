@@ -74,8 +74,28 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)pickerCtl {
-    // If canceled the picker view.
+    // If canceled, close the picker view's view.
     [[pickerCtl presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Make "Camera" button.
+    UIButton* btnCamera = [self makeButton:CGRectMake(60, 20, 200, 40) text:@"Camera" tag:BTN_CAMERA];
+    [self.view addSubview:btnCamera];
+    
+    // Make "Load Photos" button.
+    UIButton* btnRead = [self makeButton:CGRectMake(60, 70, 200, 40) text:@"Load Photos" tag:BTN_READ];
+    [self.view addSubview:btnRead];
+    
+    // Make "Write Photos" button.
+    UIButton* btnWrite = [self makeButton:CGRectMake(60, 120, 200, 40) text:@"Write Photos" tag:BTN_WRITE];
+    [self.view addSubview:btnWrite];
+    
+    // Make image view.
+    _imageView = [self makeImageView:CGRectMake(60, 190, 200, 200) image:nil];
+    [self.view addSubview:_imageView];
 }
 
 - (IBAction)clickButton:(UIButton *)sender {
