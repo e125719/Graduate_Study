@@ -9,8 +9,8 @@
   <body>
     <!-- Web page's body is here -->
     Here's the index page.
-    <form name="go_to_db" method="send" action="database.html">
-      <input type="button" onclick="location.href='database.html'" value="Go to database's page">
+    <form name="go_to_db" method="send" action="database.php">
+      <input type="button" onclick="location.href='database.php'" value="Go to database's page">
     </form>
     
     <footer>
