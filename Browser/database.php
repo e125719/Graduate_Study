@@ -49,6 +49,18 @@
         } else {
           printf("Create the Table Successfully!<br \>");
         }
+
+        // Get Datas from Database.
+        $fetchDB = $mysqli->query("SELECT * from CarNumberDB.CarNumber", MYSQLI_USE_RESULT);
+        if (!$fetchDB) {
+          printf("Cannot Get Datas from the Database: %s<br \>", $mysqli->error);
+        } else {
+          while ($row = $fetchDB->fetch_row()) {
+            printf("%d, %s, %s<br \>", $row[0], $row[1], $row[2]);
+          }
+
+          $fetchDB->close();
+        }
       }
 
       // Close the Database.
