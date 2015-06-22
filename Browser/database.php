@@ -41,6 +41,14 @@
           printf("Selected Database is %s.<br \>", $DBName[0]);
           $getDBName->close();
         }
+
+        // Create Table in the Database.
+        $createTable = $mysqli->query("CREATE TABLE IF NOT EXISTS CarNumberDB.CarNumber(carNums INTEGER, deps TEXT, attrs TEXT)");
+        if (!$createTable) {
+          printf("Cannot Create Table in the Database: %s<br \>", $mysqli->error);
+        } else {
+          printf("Create the Table Successfully!<br \>");
+        }
       }
 
       // Close the Database.
