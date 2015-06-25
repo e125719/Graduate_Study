@@ -30,6 +30,7 @@
       if (!$createTable)
         die("Cannot Create Table in the Database: " . $mysqli->error);
 
+      /*
       // Get Datas from the Database.
       $fetchDB = $mysqli->query("SELECT * from CarNumberDB.CarNumber", MYSQLI_USE_RESULT);
       if (!$fetchDB) {
@@ -41,6 +42,7 @@
 
           $fetchDB->close();
       }
+      */
 
       // Close the Database.
       $closeDB = $mysqli->close();
