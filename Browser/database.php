@@ -47,7 +47,7 @@
       // Close the Database.
       $closeDB = $mysqli->close();
       if (!$closeDB)
-        die("Cannot Close the Database: " . $mysqli->error);
+        die("Cannot Close MySQL Server: " . $mysqli->error);
     ?>
 
     <form name="go_to_index" method="send" action="index.php">
