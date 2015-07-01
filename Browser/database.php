@@ -40,6 +40,23 @@
 
     <?php
       $fetch = "SELECT * FROM CarNumberDB.CarNumber";
+
+      // Set a flag.
+      $flagArray = array('0', '0', '0');
+
+      if ($input_nums = $_POST['tb_nums']) {
+        $flagArray[0] = '1';
+      }
+      if ($input_deps = $_POST['tb_deps']) {
+        $flagArray[1] = '1';
+      }
+      if ($input_attrs = $_POST['tb_attrs']) {
+        $flagArray[2] = '1';
+      }
+
+      $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
+
+      // Fetch the Results.
       $result = $mysqli->query($fetch, MYSQLI_USE_RESULT);
       if (!$result) {
         printf("Cannot Fetch Datas from the Database!: %s<br \>", $mysqli->error);
