@@ -56,6 +56,33 @@
 
       $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
 
+      // Make an Order to Fetch from the Database.
+      switch ($flag) {
+        case '100':
+          $fetch .= " WHERE carNums = " . $input_nums;
+          break;
+        case '010':
+          $fetch .= " WHERE deps = '" . $input_deps . "'";
+          break;
+        case '001':
+          $fetch .= " WHERE attrs = '" . $input_attrs . "'";
+          break;
+        case '110':
+          $fetch .= " WHERE carNums = " . $input_nums . " AND deps = '" . $input_deps . "'";
+          break;
+        case '101':
+          $fetch .= " WHERE carNums = " . $input_nums . " AND attrs = '" . $input_attrs . "'";
+          break;
+        case '011':
+          $fetch .= " WHERE deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
+          break;
+        case '111':
+          $fetch .= " WHERE carNums = " . $input_nums . " AND deps = '" . $input_deps . "'' AND attrs = '" . $input_attrs . "'";
+          break;
+        default:
+          break;
+      }
+
       // Fetch the Results.
       $result = $mysqli->query($fetch, MYSQLI_USE_RESULT);
       if (!$result) {
