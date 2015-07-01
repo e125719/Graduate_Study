@@ -23,8 +23,18 @@
       }
     ?>
 
+    <form name="searchForm" method="POST" action="" id="searchForm_id">
+      CarNumbers:
+      <input type="text" name="tb_nums" id="tb_nums_id" value="">
+      Deps:
+      <input type="text" name="tb_deps" id="tb_deps_id" value="">
+      Attrs:
+      <input type="text" name="tb_attrs" id="tb_attrs_id" value="">
+      <input type="submit" name="btn_exec" id="btn_exec_id" value="Search">
+    </form>
+
     <form name="go_to_index" method="send" action="index.php">
-      <input type="button" onclick="location.href='index.php'" value="Go to index">
+      <input type="button" value="Go to index" onclick="location.href='index.php'">
     </form>
     
     <footer>
