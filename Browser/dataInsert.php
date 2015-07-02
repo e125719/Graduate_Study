@@ -81,7 +81,17 @@
         default:
           break;
       }
+
+      // Insert Datas into Database.
+      $result = $mysqli->query($insert);
+      if (!$result) {
+        printf("Cannot Insert Datas into the Database!: %s<br \>", $mysqli->error);
+      } else {
+        printf("Insert Datas into the Database Successfully!<br \>");
+      }
     ?>
+
+    <hr>
 
     <footer>
     </footer>

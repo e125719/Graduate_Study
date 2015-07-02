@@ -78,7 +78,7 @@
           $fetch .= " WHERE deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
           break;
         case '111':
-          $fetch .= " WHERE carNums = " . $input_nums . " AND deps = '" . $input_deps . "'' AND attrs = '" . $input_attrs . "'";
+          $fetch .= " WHERE carNums = " . $input_nums . " AND deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
           break;
         default:
           break;
