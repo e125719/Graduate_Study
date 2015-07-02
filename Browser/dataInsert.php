@@ -37,6 +37,21 @@
       <input type="button" value="Go to index" onclick="location.href='index.php'">
     </form>
 
+    <?php
+      // Set a flag.
+      $flagArray = array('0', '0', '0');
+
+      if ($input_nums = $_POST['tb_nums']) {
+        $flagArray[0] = '1';
+      }
+      if ($input_deps = $_POST['tb_deps']) {
+        $flagArray[1] = '1';
+      }
+      if ($input_attrs = $_POST['tb_attrs']) {
+        $flagArray[2] = '1';
+      }
+    ?>
+
     <footer>
     </footer>
   </body>
