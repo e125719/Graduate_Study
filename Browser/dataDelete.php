@@ -38,6 +38,8 @@
     </form>
 
     <?php
+      $delete = "DELETE FROM CarNumberDB.CarNumber WHERE";
+
       // Set a flag.
       $flagArray = array('0', '0', '0');
 
@@ -49,6 +51,35 @@
       }
       if ($input_attrs = $_POST['tb_attrs']) {
         $flagArray[2] = '1';
+      }
+
+      $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
+
+      // Make an Order to Delete from the Database.
+      switch ($flag) {
+        case '100':
+          $delete .= " carNums = " . $input_nums;
+          break;
+        case '010':
+          $delete .= " deps = '" . $input_deps . "'";
+          break;
+        case '001':
+          $delete .= " attrs = '" . $input_attrs . "'";
+          break;
+        case '110':
+          $delete .= " carNums = " . $input_nums . " AND deps = '" . $input_deps . "'";
+          break;
+        case '101':
+          $delete .= " carNums = " . $input_nums . " AND attrs = '" . $input_attrs . "'";
+          break;
+        case '011':
+          $delete .= " deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
+          break;
+        case '111':
+          $delete .= " carNums = " . $input_nums . " AND deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
+          break;
+        default:
+          break;
       }
     ?>
 
