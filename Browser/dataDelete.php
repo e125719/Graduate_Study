@@ -81,6 +81,14 @@
         default:
           break;
       }
+
+      // Delete Datas from the Database.
+      $result = $mysqli->query($delete);
+      if (!$result) {
+        printf("Cannot Delete Datas from the Database!: %s<br \>", $mysqli->error);
+      } else {
+        printf("Delete Datas from the Database Successfully!<br \>");
+      }
     ?>
 
     <footer>
