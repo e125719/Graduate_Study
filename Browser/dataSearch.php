@@ -2,11 +2,11 @@
 <html lang="ja">
   <head>
     <link rel="stylesheet" href="style.css">
-    <title>CheckParking - DATABASE</title>
+    <title>CheckParking - DATABASE SEARCH</title>
   </head>
   <body>
     <!-- Web page's body is here -->
-    Here's the database page.<br \>
+    Here's searching the database page.<br \>
 
     <?php
       mysqli_report(MYSQLI_REPORT_ERROR);
