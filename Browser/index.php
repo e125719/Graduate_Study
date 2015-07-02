@@ -17,6 +17,10 @@
       <input type="button" onclick="location.href='dataInsert.php'" value="Go to inserting datas page">
     </form>
     
+    <form name="go_to_delete" method="send" action="dataDelete.php">
+      <input type="button" onclick="location.href='dataDelete.php'" value="Go to deleting datas page">
+    </form>
+
     <footer>
     </footer>
   </body>

@@ -23,6 +23,10 @@
       }
     ?>
 
+    <form name="go_to_index" method="send" action="index.php">
+      <input type="button" value="Go to index" onclick="location.href='index.php'">
+    </form>
+
     <footer>
     </footer>
   </body>
