@@ -38,6 +38,8 @@
     </form>
 
     <?php
+      $insert = "INSERT INTO CarNumberDB.CarNumber (";
+
       // Set a flag.
       $flagArray = array('0', '0', '0');
 
@@ -49,6 +51,35 @@
       }
       if ($input_attrs = $_POST['tb_attrs']) {
         $flagArray[2] = '1';
+      }
+
+      $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
+
+      // Make an Order to Insert Datas into the Database.
+      switch ($flag) {
+        case '100':
+          $insert .= "carNums) VALUES(" . $input_nums . ")";
+          break;
+        case '010':
+          $insert .= "deps) VALUES('" . $input_deps . "')";
+          break;
+        case '001':
+          $insert .= "attrs) VALUES('" . $input_attrs . "')";
+          break;
+        case '110':
+          $insert .= "carNums, deps) VALUES(" . $input_nums . ", '" . $input_deps . "')";
+          break;
+        case '101':
+          $insert .= "carNums, attrs) VALUES(" . $input_nums . ", '" . $input_attrs . "')";
+          break;
+        case '011':
+          $insert .= "deps, attrs) VALUES('" . $input_deps . "', '" . $input_attrs . "')";
+          break;
+        case '111':
+          $insert .= "carNums, deps, attrs) VALUES(" . $input_nums . ", '" . $input_deps . "', '" . $input_attrs . "')";
+          break;
+        default:
+          break;
       }
     ?>
 
