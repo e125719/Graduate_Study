@@ -27,9 +27,22 @@
       CarNumbers:
       <input type="text" name="tb_nums" id="tb_nums_id" value="">
       Deps:
-      <input type="text" name="tb_deps" id="tb_deps_id" value="">
+      <select name="pd_deps">
+        <option value="deps_0"></option>
+        <option value="deps_1">Law and Literature</option>
+        <option value="deps_2">Tourism and Management</option>
+        <option value="deps_3">Education</option>
+        <option value="deps_4">Science</option>
+        <option value="deps_5">Medical</option>
+        <option value="deps_6">Engineering</option>
+        <option value="deps_7">Agricalture</option>
+      </select>
       Attrs:
-      <input type="text" name="tb_attrs" id="tb_attrs_id" value="">
+      <select name="pd_attrs">
+        <option value="attrs_n"></option>
+        <option value="attrs_s">Student</option>
+        <option value="attrs_t">Teacher</option>
+      </select>
       <input type="submit" name="btn_exec" id="btn_exec_id" value="Insert">
     </form>
 
@@ -46,16 +59,15 @@
       if ($input_nums = $_POST['tb_nums']) {
         $flagArray[0] = '1';
       }
-      if ($input_deps = $_POST['tb_deps']) {
+      if ($flag_deps = $_POST['pd_deps'] ) {
         $flagArray[1] = '1';
       }
-      if ($input_attrs = $_POST['tb_attrs']) {
+      if ($flag_attrs = $_POST['pd_attrs'] ) {
         $flagArray[2] = '1';
       }
 
-      $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
-
       // Make an Order to Insert Datas into the Database.
+      $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
       switch ($flag) {
         case '100':
           $insert .= "carNums) VALUES(" . $input_nums . ")";
