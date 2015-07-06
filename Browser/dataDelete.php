@@ -52,6 +52,9 @@
 
     <?php
       $delete = "DELETE FROM CarNumberDB.CarNumber WHERE";
+      $tb_nums = "";
+      $flag_deps = "";
+      $flag_attrs = "";
 
       // Set a flag.
       $flagArray = array('0', '0', '0');
@@ -63,6 +66,47 @@
       }
       if ($flag_attrs = $_POST['pd_attrs']) {
         $flagArray[2] = '1';
+      }
+
+      // Switch If "flag_deps" is Set.
+      switch ($flag_deps) {
+        case "deps_1":
+          $input_deps = "Law and Literature";
+          break;
+        case "deps_2":
+          $input_deps = "Tourism and Management";
+          break;
+        case "deps_3":
+          $input_deps = "Education";
+          break;
+        case "deps_4":
+          $input_deps = "Science";
+          break;
+        case "deps_5":
+          $input_deps = "Medical";
+          break;
+        case "deps_6":
+          $input_deps = "Engineering";
+          break;
+        case "deps_7":
+          $input_deps = "Agricalture";
+          break;
+        default:
+          $flagArray[1] = "0";
+          break;
+      }
+
+      // Switch If "flag_attrs" is Set.
+      switch ($flag_attrs) {
+        case "attrs_s":
+          $input_attrs = "Student";
+          break;
+        case "attrs_t":
+          $input_attrs = "Teacher";
+          break;
+        default:
+          $flagArray[2] = "0";
+          break;
       }
 
       // Make an Order to Delete from the Database.
