@@ -145,9 +145,18 @@
         printf("Cannot Fetch Datas from the Database!: %s<br \>", $mysqli->error);
         $result->close();
       } else {
+        echo "<table class='table_result'>";
+        echo "<tr>";
+        echo "<th>CarNumbers</th>"; echo "<th>Deps</th>"; echo "<th>Attrs</th>";
+        echo "</tr>";
+
         while ($row = $result->fetch_row()) {
-          printf("%d, %s, %s<br \>", $row[0], $row[1], $row[2]);
+          echo "<tr>";
+          printf("<td>%d</td>", $row[0]); printf("<td>%s</td>", $row[1]); printf("<td>%s</td>", $row[2]);
+          echo "</tr>";
         }
+
+        echo "</table>";
 
         $result->close();
       }
