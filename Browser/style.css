@@ -4,3 +4,25 @@ body {
     font-family: 'UTF-8', sans-serif;
     background-color:#f5deb3;
 }
+
+.table_result{
+	width: 60%;
+	border-collapse: separate;
+}
+
+.table_result th{
+	width: 20%;
+	padding: 6px;
+	text-align: center;
+	vertical-align: top;
+	color: #333;
+	background-color: #eee;
+	border: 1px; solid: #b9b9b9;
+}
+
+.table_result td{
+	padding: 6px;
+	text-align: center;
+	background-color: #fff;
+	border: 1px; solid: #b9b9b9;
+}
