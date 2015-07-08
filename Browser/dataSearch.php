@@ -17,15 +17,22 @@
         $mysqli->query("CREATE DATABASE IF NOT EXISTS CarNumberDB");        // Create the Database.
         $mysqli->select_db("CarNumberDB");                                  // Select the Database.
         $mysqli->query("CREATE TABLE IF NOT EXISTS 
-          CarNumberDB.CarNumber(carNums INTEGER, deps TEXT, attrs TEXT)");  // Create the Table.
+          CarNumberDB.OwnerInfo(name TEXT, attrs TEXT, deps TEXT)");  // Create the Table.
       } catch (mysqli_sql_exception $e) {
         $error = $e->getMessage();
       }
     ?>
 
     <form name="searchForm" method="POST" action="" id="searchForm_id">
-      CarNumbers:
-      <input type="text" name="tb_nums" id="tb_nums_id" value="">
+      Name:
+      <input type="text" name="tb_name" id="tb_name_id" value="" autocomplete="off">
+      Attrs:
+      <select name="pd_attrs">
+        <option value="attrs_n"></option>
+        <option value="attrs_s">Student</option>
+        <option value="attrs_t">Teacher</option>
+        <option value="attrs_o">Others</option>
+      </select>
       Deps:
       <select name="pd_deps">
         <option value="deps_0"></option>
@@ -37,12 +44,6 @@
         <option value="deps_6">Engineering</option>
         <option value="deps_7">Agricalture</option>
       </select>
-      Attrs:
-      <select name="pd_attrs">
-        <option value="attrs_n"></option>
-        <option value="attrs_s">Student</option>
-        <option value="attrs_t">Teacher</option>
-      </select>
       <input type="submit" name="btn_exec" id="btn_exec_id" value="Search">
     </form>
 
@@ -53,14 +54,14 @@
     <hr>
 
     <?php
-      $fetch = "SELECT * FROM CarNumberDB.CarNumber";
+      $fetch = "SELECT * FROM CarNumberDB.OwnerInfo";
       $flag_deps = "";
       $flag_attrs = "";
 
       // Set a flag.
       $flagArray = array('0', '0', '0');
 
-      if ($input_nums = $_POST['tb_nums']) {
+      if ($input_name = $_POST['tb_name']) {
         $flagArray[0] = '1';
       }
       if ($flag_deps = $_POST['pd_deps']) {
@@ -106,6 +107,9 @@
         case "attrs_t":
           $input_attrs = "Teacher";
           break;
+        case "attrs_o":
+          $input_attrs = "Others";
+          break;
         default:
           $flagArray[2] = "0";
           break;
@@ -115,7 +119,7 @@
       $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
       switch ($flag) {
         case '100':
-          $fetch .= " WHERE carNums = " . $input_nums;
+          $fetch .= " WHERE name = '" . $input_name . "'";
           break;
         case '010':
           $fetch .= " WHERE deps = '" . $input_deps . "'";
@@ -124,16 +128,17 @@
           $fetch .= " WHERE attrs = '" . $input_attrs . "'";
           break;
         case '110':
-          $fetch .= " WHERE carNums = " . $input_nums . " AND deps = '" . $input_deps . "'";
+          $fetch .= " WHERE name = '" . $input_name . "' AND deps = '" . $input_deps . "'";
           break;
         case '101':
-          $fetch .= " WHERE carNums = " . $input_nums . " AND attrs = '" . $input_attrs . "'";
+          $fetch .= " WHERE name = '" . $input_name . "' AND attrs = '" . $input_attrs . "'";
           break;
         case '011':
           $fetch .= " WHERE deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
           break;
         case '111':
-          $fetch .= " WHERE carNums = " . $input_nums . " AND deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
+          $fetch .= " WHERE name = '" . $input_name . "' AND deps = '" . $input_deps .
+                      "' AND attrs = '" . $input_attrs . "'";
           break;
         default:
           break;
@@ -147,12 +152,12 @@
       } else {
         echo "<table class='table_result'>";
         echo "<tr>";
-        echo "<th>CarNumbers</th>"; echo "<th>Deps</th>"; echo "<th>Attrs</th>";
+        echo "<th>Name</th>"; echo "<th>Deps</th>"; echo "<th>Attrs</th>";
         echo "</tr>";
 
         while ($row = $result->fetch_row()) {
           echo "<tr>";
-          printf("<td>%d</td>", $row[0]); printf("<td>%s</td>", $row[1]); printf("<td>%s</td>", $row[2]);
+          printf("<td>%s</td>", $row[0]); printf("<td>%s</td>", $row[1]); printf("<td>%s</td>", $row[2]);
           echo "</tr>";
         }
 
