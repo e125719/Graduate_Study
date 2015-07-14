@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  CheckParking
 //
-//  Created by e125719 on 2015/06/03.
+//  Created by e125719 on 2015/07/13.
 //  Copyright (c) 2015年 Takahiro NAGAKURA. All rights reserved.
 //
 
