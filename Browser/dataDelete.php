@@ -17,7 +17,7 @@
         $mysqli->query("CREATE DATABASE IF NOT EXISTS CarNumberDB");        // Create the Database.
         $mysqli->select_db("CarNumberDB");                                  // Select the Database.
         $mysqli->query("CREATE TABLE IF NOT EXISTS 
-          CarNumberDB.OwnerInfo(name TEXT, deps TEXT, attrs TEXT)");  // Create the Table.
+          CarNumberDB.OwnerInfo(name TEXT, deps TEXT, attrs TEXT)");        // Create the Table.
       } catch (mysqli_sql_exception $e) {
         $error = $e->getMessage();
       }

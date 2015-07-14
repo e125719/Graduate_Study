@@ -17,7 +17,7 @@
         $mysqli->query("CREATE DATABASE IF NOT EXISTS CarNumberDB");        // Create the Database.
         $mysqli->select_db("CarNumberDB");                                  // Select the Database.
         $mysqli->query("CREATE TABLE IF NOT EXISTS 
-          CarNumberDB.OwnerInfo(name TEXT, attrs TEXT, deps TEXT)");  // Create the Table.
+          CarNumberDB.OwnerInfo(name TEXT, attrs TEXT, deps TEXT)");        // Create the Table.
       } catch (mysqli_sql_exception $e) {
         $error = $e->getMessage();
       }
@@ -54,7 +54,6 @@
     <hr>
 
     <?php
-      $fetch = "SELECT * FROM CarNumberDB.OwnerInfo";
       $flag_deps = "";
       $flag_attrs = "";
 
@@ -118,52 +117,64 @@
       // Make an Order to Fetch from the Database.
       $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
       switch ($flag) {
+        case '000':
+          $fetchQuery = $mysqli->prepare("SELECT * FROM OwnerInfo");
+          break;
         case '100':
-          $fetch .= " WHERE name = '" . $input_name . "'";
+          $fetchQuery = $mysqli->prepare("SELECT * FROM OwnerInfo WHERE name = ?");
+          $fetchQuery->bind_param('s', $input_name);
           break;
         case '010':
-          $fetch .= " WHERE deps = '" . $input_deps . "'";
+          $fetchQuery = $mysqli->prepare("SELECT * FROM OwnerInfo WHERE deps = ?");
+          $fetchQuery->bind_param('s', $input_deps);
           break;
         case '001':
-          $fetch .= " WHERE attrs = '" . $input_attrs . "'";
+          $fetchQuery = $mysqli->prepare("SELECT * FROM OwnerInfo WHERE attrs = ?");
+          $fetchQuery->bind_param('s', $input_attrs);
           break;
         case '110':
-          $fetch .= " WHERE name = '" . $input_name . "' AND deps = '" . $input_deps . "'";
+          $fetchQuery = $mysqli->prepare("SELECT * FROM OwnerInfo WHERE name = ? AND deps = ?");
+          $fetchQuery->bind_param('ss', $input_name, $input_deps);
           break;
         case '101':
-          $fetch .= " WHERE name = '" . $input_name . "' AND attrs = '" . $input_attrs . "'";
+          $fetchQuery = $mysqli->prepare("SELECT * FROM OwnerInfo WHERE name = ? AND attrs = ?");
+          $fetchQuery->bind_param('ss', $input_name, $input_attrs);
           break;
         case '011':
-          $fetch .= " WHERE deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
+          $fetchQuery = $mysqli->prepare("SELECT * FROM OwnerInfo WHERE deps = ? AND attrs = ?");
+          $fetchQuery->bind_param('ss', $input_deps, $input_attrs);
           break;
         case '111':
-          $fetch .= " WHERE name = '" . $input_name . "' AND deps = '" . $input_deps .
-                      "' AND attrs = '" . $input_attrs . "'";
+          $fetchQuery = $mysqli->prepare("SELECT * FROM OwnerInfo WHERE name = ? AND deps = ? AND attrs = ?");
+          $fetchQuery->bind_param('sss', $input_name, $input_deps, $input_attrs);
           break;
         default:
           break;
       }
 
       // Fetch Results from the Database.
-      $result = $mysqli->query($fetch, MYSQLI_USE_RESULT);
+      $result = $fetchQuery->execute();
       if (!$result) {
         printf("Cannot Fetch Datas from the Database!: %s<br \>", $mysqli->error);
-        $result->close();
+        $fetchQuery->close();
       } else {
+        $fetchQuery->bind_result($nameRslt, $depsRslt, $attrsRslt);
+
+        // Make a Table to Show Results Fetched.
         echo "<table class='table_result'>";
         echo "<tr>";
         echo "<th>Name</th>"; echo "<th>Deps</th>"; echo "<th>Attrs</th>";
         echo "</tr>";
 
-        while ($row = $result->fetch_row()) {
+        while ($fetchQuery->fetch()) {
           echo "<tr>";
-          printf("<td>%s</td>", $row[0]); printf("<td>%s</td>", $row[1]); printf("<td>%s</td>", $row[2]);
+          printf("<td>%s</td>", $nameRslt); printf("<td>%s</td>", $depsRslt); printf("<td>%s</td>", $attrsRslt);
           echo "</tr>";
         }
 
         echo "</table>";
 
-        $result->close();
+        $fetchQuery->close();
       }
     ?>
 
