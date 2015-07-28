@@ -17,7 +17,7 @@
         $mysqli->query("CREATE DATABASE IF NOT EXISTS CarNumberDB");        // Create the Database.
         $mysqli->select_db("CarNumberDB");                                  // Select the Database.
         $mysqli->query("CREATE TABLE IF NOT EXISTS 
-          CarNumberDB.OwnerInfo(name TEXT, deps TEXT, attrs TEXT)");        // Create the Table.
+          OwnerInfo(name TEXT, deps TEXT, attrs TEXT)");                    // Create the Table.
       } catch (mysqli_sql_exception $e) {
         $error = $e->getMessage();
       }
@@ -52,7 +52,6 @@
     </form>
 
     <?php
-      $insert = "INSERT INTO CarNumberDB.OwnerInfo (";
       $tb_name = "";
       $flag_deps = "";
       $flag_attrs = "";
@@ -118,25 +117,32 @@
       $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
       switch ($flag) {
         case '100':
-          $insert .= "name) VALUES('" . $input_name . "')";
+          $insertQuery = $mysqli->prepare("INSERT INTO OwnerInfo(name) VALUES(?)");
+          $insertQuery->bind_param("s", $input_name);
           break;
         case '010':
-          $insert .= "deps) VALUES('" . $input_deps . "')";
+          $insertQuery = $mysqli->prepare("INSERT INTO OwnerInfo(deps) VALUES(?)");
+          $insertQuery->bind_param("s", $input_deps);
           break;
         case '001':
-          $insert .= "attrs) VALUES('" . $input_attrs . "')";
+          $insertQuery = $mysqli->prepare("INSERT INTO OwnerInfo(attrs) VALUES(?)");
+          $insertQuery->bind_param("s", $input_attrs);
           break;
         case '110':
-          $insert .= "name, deps) VALUES('" . $input_name . "', '" . $input_deps . "')";
+          $insertQuery = $mysqli->prepare("INSERT INTO OwnerInfo(name, deps) VALUES(?, ?)");
+          $insertQuery->bind_param("ss", $input_name, $input_deps);
           break;
         case '101':
-          $insert .= "name, attrs) VALUES('" . $input_name . "', '" . $input_attrs . "')";
+          $insertQuery = $mysqli->prepare("INSERT INTO OwnerInfo(name, deps) VALUES(?, ?)");
+          $insertQuery->bind_param("ss", $input_name, $input_attrs);
           break;
         case '011':
-          $insert .= "deps, attrs) VALUES('" . $input_deps . "', '" . $input_attrs . "')";
+          $insertQuery = $mysqli->prepare("INSERT INTO OwnerInfo(deps, attrs) VALUES(?, ?)");
+          $insertQuery->bind_param("ss", $input_deps, $input_attrs);
           break;
         case '111':
-          $insert .= "name, deps, attrs) VALUES('" . $input_name . "', '" . $input_deps . "', '" . $input_attrs . "')";
+          $insertQuery = $mysqli->prepare("INSERT INTO OwnerInfo(name, deps, attrs) VALUES(?, ?, ?)");
+          $insertQuery->bind_param("sss", $input_name, $input_deps, $input_attrs);
           break;
         default:
           break;
