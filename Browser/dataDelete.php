@@ -17,7 +17,7 @@
         $mysqli->query("CREATE DATABASE IF NOT EXISTS CarNumberDB");        // Create the Database.
         $mysqli->select_db("CarNumberDB");                                  // Select the Database.
         $mysqli->query("CREATE TABLE IF NOT EXISTS 
-          CarNumberDB.OwnerInfo(name TEXT, deps TEXT, attrs TEXT)");        // Create the Table.
+          OwnerInfo(name TEXT, deps TEXT, attrs TEXT)");                    // Create the Table.
       } catch (mysqli_sql_exception $e) {
         $error = $e->getMessage();
       }
@@ -52,7 +52,6 @@
     </form>
 
     <?php
-      $delete = "DELETE FROM CarNumberDB.OwnerInfo WHERE";
       $tb_name = "";
       $flag_deps = "";
       $flag_attrs = "";
@@ -117,25 +116,32 @@
       $flag = $flagArray[0] . $flagArray[1] . $flagArray[2];
       switch ($flag) {
         case '100':
-          $delete .= " name = '" . $input_name . "'";
+          $deleteQuery = $mysqli->prepare("DELETE FROM OwnerInfo WHERE name = ?");
+          $deleteQuery->bind_param("s", $input_name);
           break;
         case '010':
-          $delete .= " deps = '" . $input_deps . "'";
+          $deleteQuery = $mysqli->prepare("DELETE FROM OwnerInfo WHERE deps = ?");
+          $deleteQuery->bind_param("s", $input_deps);
           break;
         case '001':
-          $delete .= " attrs = '" . $input_attrs . "'";
+          $deleteQuery = $mysqli->prepare("DELETE FROM OwnerInfo WHERE attrs = ?");
+          $deleteQuery->bind_param("s", $input_attrs);
           break;
         case '110':
-          $delete .= " name = '" . $input_name . "' AND deps = '" . $input_deps . "'";
+          $deleteQuery = $mysqli->prepare("DELETE FROM OwnerInfo WHERE name = ? AND deps = ?");
+          $deleteQuery->bind_param("ss", $input_name, $input_deps);
           break;
         case '101':
-          $delete .= " name = '" . $input_name . "' AND attrs = '" . $input_attrs . "'";
+          $deleteQuery = $mysqli->prepare("DELETE FROM OwnerInfo WHERE name = ? AND attrs = ?");
+          $deleteQuery->bind_param("ss", $input_name, $input_attrs);
           break;
         case '011':
-          $delete .= " deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
+          $deleteQuery = $mysqli->prepare("DELETE FROM OwnerInfo WHERE deps = ? AND attrs = ?");
+          $deleteQuery->bind_param("ss", $input_deps, $input_attrs);
           break;
         case '111':
-          $delete .= " name = '" . $input_name . "' AND deps = '" . $input_deps . "' AND attrs = '" . $input_attrs . "'";
+          $deleteQuery = $mysqli->prepare("DELETE FROM OwnerInfo WHERE name = ? AND deps = ? AND attrs = ?");
+          $deleteQuery->bind_param("sss", $input_name, $input_deps, $input_attrs);
           break;
         default:
           break;
