@@ -7,7 +7,7 @@
   </head>
   <body>
     <!-- Web page's body is here -->
-    Here's searching the database page.<br \>
+    Here's fetching from the database page.<br \>
 
     <?php
       mysqli_report(MYSQLI_REPORT_ERROR);
@@ -60,7 +60,8 @@
       // Set a flag.
       $flagArray = array('0', '0', '0');
 
-      if ($input_name = $_POST['tb_name']) {
+      if ($flag_name = $_POST['tb_name']) {
+        $input_name = addslashes($_POST['tb_name']);
         $flagArray[0] = '1';
       }
       if ($flag_deps = $_POST['pd_deps']) {

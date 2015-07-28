@@ -59,7 +59,8 @@
       // Set a flag.
       $flagArray = array('0', '0', '0');
 
-      if ($input_name = $_POST['tb_name']) {
+      if ($flag_name = $_POST['tb_name']) {
+        $input_name = addslashes($_POST['tb_name']);
         $flagArray[0] = '1';
       }
       if ($flag_deps = $_POST['pd_deps'] ) {
